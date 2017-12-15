@@ -17,7 +17,9 @@ class ThreadPool(object):
     p.outputs # [x,x,x, ...]
     """
 
-    def __init__(self, func, inputs, number = 10):
+    def __init__(self, func, inputs, number = 10, print_result = False):
+
+        self.print_result = print_result
 
         self.runable = True
         self.error = ""
@@ -70,6 +72,9 @@ class ThreadPool(object):
                 returned = func(args)
             
             self.outputs[index] = returned
+
+            if self.print_result and returned != None:
+                print("input [%s] output [%s]" % (args, returned))
 
     def start(self):
         for i in xrange(self.__number):
